@@ -3,30 +3,28 @@
 > 이번 과제는 테스트 코드를 먼저 작성한 후, 리팩토링을 하는 순서로 진행되었다.
 
 ## 전체 코드 파악하기
-### 1. 전체 흐름
 
-DirtySample의 `updateQuality()` 메서드는 크게 3개의 if문으로 구성된다. 시간이 흐르면서 각 item의 quality와 sellIn이 변하고 이에 따라 그 다음 item의 quality가 update된다. 
+### 전체 흐름
+
+DirtySample의 `updateQuality()` 메서드는 크게 3개의 if문으로 구성된다.  
+시간이 흐르면서 각 item의 quality와 sellIn이 변하고 이에 따라 그 다음 item의 quality가 update된다. 
 
 
 1) quality의 값 증가 또는 감소 (또는 0)
     - quality의 값은 0 이상 50 이하이다.
 2) sellIn의 값 감소 
 
-### 2. item 필드
+### item 필드
 
-1) **name**: item 종류
+1. **name**: item 종류
+    - `Aged Brie`
+    - `Backstage passes to TAFKAL80ETC concert` (*이하 `Backstage`로 생략*)
+    - `Sulfuras, Hand of Ragnaros` (*이하 `Sulfuras`로 생략*)
+    - 세가지 모두 아닌 경우
+    
+2. **quality**: item 품질
 
-- Aged Brie
-- Backstage passes to TAFKAL80ETC concert (*이하 Backstage로 생략*)
-- Sulfuras, Hand of Ragnaros (*이하 Sulfuras로 생략*)
-- 세가지 모두 아닌 경우
-
-​	2) **quality**: item 품질
-
-​	3) **sell In**: item 판매량
-
-
-<hr/>
+3. **sell In**: item 판매량
 
 ## 조건문 분석하기
 
@@ -175,7 +173,6 @@ if (item.sellIn < 0) {
     1. sellIn이 0보다 작고 quality 가 0보다 크면  
     -> **quality를 1만큼 감소**시킨다.
 
-<hr/>
 
 ### `if`문 --(1)(2)(3) 정리
 
@@ -200,7 +197,6 @@ if (item.sellIn < 0) {
     `quality 가 0보다 크면 quality를 -1감소한다.` <br>
     `sellIn을 -1 감소` <br>
     `sellIn이 0보다 작고 quality 가 0보다 크면 quality를 -1감소한다.`
-
 
 
 
