@@ -182,25 +182,23 @@ if (item.sellIn < 0) {
 
 첫번째 if문 부터 차근차근 내려오면서 살펴보자.  
     
-#### Aged Brie   
+#### - Aged Brie   
 1) `quality < 50` -> **quality 1 증가**  
 2) **sellIn 1 감소**  
 3) `sellIn < 0` && `quality < 50` -> **quality 1 증가**
     
 
-#### Backstage    
-1) - `sellIn < 6` && `quality < 48` -> **quality 3 증가**
-    - `sellIn < 11` && `quality < 49` -> **quality 2 증가**
-    - `quality < 50`-> **quality 1 증가**  
-2) **sellIn 1 감소**  
-3) `sellIn < 0` -> **quality는 0** 
+#### - Backstage    
+1) `quality < 50`-> **quality 1 증가**
+2) `sellIn < 11` && `quality < 50` -> **quality 1 증가**
+3) `sellIn < 6` && `quality < 50` -> **quality 1 증가**
+4) **sellIn 1 감소**  
+5) `sellIn < 0` -> **quality는 0** 
 
+#### - Sulfuras    
+~~놀랍게도 아무일도 하지 않는다~~
 
-#### Sulfuras    
-  ~~놀랍게도 아무일도 하지 않는다~~
-
-
-#### 그 외 ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~)   
+#### - 그 외 ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~)   
 
 1) `quality > 0` -> **quality 1 감소**  
 2) **sellIn 1 감소**  
