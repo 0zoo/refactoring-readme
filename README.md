@@ -319,23 +319,23 @@ void updateItemFields() {
     }
     ```
     - Aged Brie일 경우
-    ```java
-    private void updateAgedBrieFields(Item item) {
-        increaseQualityLowerThanFifty(item);
-        ...
-        if (item.sellIn < 0) increaseQualityLowerThanFifty(item);
-    }
-    ```
+        ```java
+        private void updateAgedBrieFields(Item item) {
+            increaseQualityLowerThanFifty(item);
+            ...
+            if (item.sellIn < 0) increaseQualityLowerThanFifty(item);
+        }
+        ```
 
     - Backstage일 경우
-    ```java
-    private void updateBackstageFields(Item item) {
-        increaseQualityLowerThanFifty(item);
-        if (item.sellIn < 11) increaseQualityLowerThanFifty(item);
-        if (item.sellIn < 6) increaseQualityLowerThanFifty(item);
-        ...
-    }
-    ```
+        ```java
+        private void updateBackstageFields(Item item) {
+            increaseQualityLowerThanFifty(item);
+            if (item.sellIn < 11) increaseQualityLowerThanFifty(item);
+            if (item.sellIn < 6) increaseQualityLowerThanFifty(item);
+            ...
+        }
+        ```
 2. quality가 0보다 크면 1 감소:
     ```java
     private void decreaseQualityHigherThanZero(Item item) {
@@ -344,13 +344,13 @@ void updateItemFields() {
     }
     ```
     - 그 이외의 경우
-    ```java
-    private void updateElseFields(Item item) {
-        decreaseQualityHigherThanZero(item);
-        ...
-        if (item.sellIn < 0) decreaseQualityHigherThanZero(item);
-    }
-    ```
+        ```java
+        private void updateElseFields(Item item) {
+            decreaseQualityHigherThanZero(item);
+            ...
+            if (item.sellIn < 0) decreaseQualityHigherThanZero(item);
+        }
+        ```
 
 3. sellIn 1 감소:
     ```java
@@ -359,29 +359,29 @@ void updateItemFields() {
     }
     ```
     - Aged Brie일 경우
-    ```java
-    private void updateAgedBrieFields(Item item) {
-        ...
-        decreaseSellIn(item);
-        ...
-    }
-    ```
+        ```java
+        private void updateAgedBrieFields(Item item) {
+            ...
+            decreaseSellIn(item);
+            ...
+        }
+        ```
     - Backstage일 경우
-    ```java
-    private void updateBackstageFields(Item item) {
-        ...
-        decreaseSellIn(item);
-        ...
-    }
-    ```
+        ```java
+        private void updateBackstageFields(Item item) {
+            ...
+            decreaseSellIn(item);
+            ...
+        }
+        ```
     - 그 이외의 경우
-    ```java
-    private void updateElseFields(Item item) {
-        ...
-        decreaseSellIn(item);
-        ...
-    }
-    ```
+        ```java
+        private void updateElseFields(Item item) {
+            ...
+            decreaseSellIn(item);
+            ...
+        }
+        ```
  
 
  
