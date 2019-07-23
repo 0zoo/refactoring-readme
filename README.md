@@ -176,28 +176,39 @@ if (item.sellIn < 0) {
 
 ### `if`문 --(1)(2)(3) 정리
 
-첫번째 if문 부터 차근차근 내려오면서 살펴보자.
+첫번째 if문 부터 차근차근 내려오면서 살펴보자.  
     
 - **Aged Brie**:  
-    `quality가 50보다 작으면 quality를 +1 증가한다.` <br>
-    `sellIn을 -1 감소` <br>
-    `sellIn이 0보다 작고 quality가 50보다 작으면 quality를 +1 증가한다.`
+    (1) `quality < 50` -> **quality 1 증가**  
+
+    (2) **sellIn 1 감소**  
     
-- **Backstage**:  
-    `quality가 50보다 작으면 quality를 +1 증가한다.` <br>
-    `sellIn이 11보다 작고 quality가 50보다 작으면 quality를 +1 증가한다.` <br>
-    `sellIn이 6보다 작고 quality가 50보다 작으면 quality를 +1 증가한다.` <br>
-    `sellIn을 -1 감소`
-    `sellIn이 0보다 작으면 quality는 0`
+    (3) `sellIn < 0` && `quality < 50`    
+    -> **quality 1 증가**
+    
+- **Backstage**:   
+    (1) 
+    - `sellIn < 6` && `quality < 48`  
+        -> **quality 3 증가**
+    - `sellIn < 11` && `quality < 49` 
+        -> **quality 2 증가**
+    - `quality < 50`  
+        -> **quality 1 증가**
+        
+    (2) **sellIn 1 감소**  
+
+    (3) `sellIn < 0` -> **quality는 0** 
 
 - **Sulfuras**:  
   ~~놀랍게도 아무일도 하지 않는다~~
 
-- **그 외** ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~):   
-    `quality 가 0보다 크면 quality를 -1감소한다.` <br>
-    `sellIn을 -1 감소` <br>
-    `sellIn이 0보다 작고 quality 가 0보다 크면 quality를 -1감소한다.`
+- **그 외** ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~): 
+    (1) `quality > 0` -> **quality 1 감소**  
 
+    (2) **sellIn 1 감소**  
+
+    (3) `sellIn < 0` && `quality > 0`  
+    -> **quality 1 감소**
 
 
 ## 테스트 method 구현하기
@@ -218,7 +229,7 @@ hamcrest의 assertThat을 이용하여 확인해보면서 테스트 코드를 �
 
    기존의 updateQuality() 메서드에서 item의 sell In이 변하기 때문에 포괄하기 위해 메서드 이름을 updateItem() 로 바꾸었다.
 
-   - 가독성을 높이기 위해 for 문을 인덱스형식 for(int i=0; i<items.size();i++)에서 배열의 모든 요소를 출력하는 향상된 for문 형식 for(Item item : items)으로 바꾸어 표현했다.
+   - 가독성을 높이기 위해 for 문을 인덱스형식 `for(int i=0; i<items.size();i++)` 에서 배열의 모든 요소를 출력하는 향상된 for문 형식 for(Item item : items)으로 바꾸어 표현했다.
    - 전체 코드 흐름 파악에서 미리 말했듯이 해당 메서드는 크게 if문 3개로 나누어졌다. 각 if문에 대해 updateQualityExceptForSulfuras(item), updateSellIn(item), updateQualityBasedOnSellInLowerThan0(item) 메서드로 extract하였다.
 
 ``` java
