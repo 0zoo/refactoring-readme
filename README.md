@@ -2,6 +2,8 @@
 
 > 이번 과제는 테스트 코드를 먼저 작성한 후, 리팩토링을 하는 순서로 진행되었다.
 
+<hr/>
+
 ## 전체 코드 파악하기
 
 ### 전체 흐름
@@ -25,6 +27,8 @@ DirtySample의 `updateQuality()` 메서드는 크게 3개의 if문으로 구성�
 2. **quality**: item 품질
 
 3. **sell In**: item 판매량
+
+<hr/>
 
 ## 조건문 분석하기
 
@@ -178,14 +182,13 @@ if (item.sellIn < 0) {
 
 첫번째 if문 부터 차근차근 내려오면서 살펴보자.  
     
-#### `Aged Brie`    
+#### Aged Brie   
 1) `quality < 50` -> **quality 1 증가**  
 2) **sellIn 1 감소**  
 3) `sellIn < 0` && `quality < 50` -> **quality 1 증가**
     
 
-
-#### `Backstage`    
+#### Backstage    
 1) - `sellIn < 6` && `quality < 48` -> **quality 3 증가**
     - `sellIn < 11` && `quality < 49` -> **quality 2 증가**
     - `quality < 50`-> **quality 1 증가**  
@@ -193,16 +196,17 @@ if (item.sellIn < 0) {
 3) `sellIn < 0` -> **quality는 0** 
 
 
-#### `Sulfuras`    
+#### Sulfuras    
   ~~놀랍게도 아무일도 하지 않는다~~
 
 
-#### `그 외` ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~)   
+#### 그 외 ( ~~Aged Brie~~, ~~BackStage~~, ~~Sulfuras~~)   
 
 1) `quality > 0` -> **quality 1 감소**  
 2) **sellIn 1 감소**  
 3) `sellIn < 0` && `quality > 0` -> **quality 1 감소**
 
+<hr/>
 
 ## 테스트 method 구현하기
 
@@ -212,18 +216,21 @@ hamcrest의 assertThat을 이용하여 확인해보면서 테스트 코드를 �
 
 <hr/>
 
-## 리팩토링
+## Refactoring
 
-1. 클래스 이름 변경
+### 1. 클래스 이름 변경
 
-   시간이 흐르면서 각 item의 quality와 sell In이 변하고 이에 따라 그 다음 item의 quality를 update하는 코드의 전체 흐름을 반영하기 위해 클래스 이름은 DirtySample에서 조금 더 의미 있는 'ManageItem'으로 바꾸었다. 
+시간이 흐르면서 각 item의 quality와 sell In이 변하고 이에 따라 그 다음 item의 quality를 update하는 코드의 전체 흐름을 반영하기 위해   
+클래스 이름은 DirtySample에서 조금 더 의미 있는 **`ManageItem`** 으로 바꾸었다. 
 
-2. updateItem() 메서드
+### 2. `updateItem()` 메서드
 
-   기존의 updateQuality() 메서드에서 item의 sell In이 변하기 때문에 포괄하기 위해 메서드 이름을 updateItem() 로 바꾸었다.
+기존의 `updateQuality()` 메서드에서 item의 sellIn이 변하기 때문에 포괄하기 위해 메서드 이름을 `updateItem()` 로 바꾸었다.
 
-   - 가독성을 높이기 위해 for 문을 인덱스형식 `for(int i=0; i<items.size();i++)` 에서 배열의 모든 요소를 출력하는 향상된 for문 형식 for(Item item : items)으로 바꾸어 표현했다.
-   - 전체 코드 흐름 파악에서 미리 말했듯이 해당 메서드는 크게 if문 3개로 나누어졌다. 각 if문에 대해 updateQualityExceptForSulfuras(item), updateSellIn(item), updateQualityBasedOnSellInLowerThan0(item) 메서드로 extract하였다.
+- 가독성을 높이기 위해 for 문을 인덱스 형식 `for(int i=0; i<items.size();i++)` 에서 배열의 모든 요소를 출력하는 **향상된 for문 형식** `for(Item item : items)`으로 변경했다.
+
+- 전체 코드 흐름 파악에서 미리 말했듯이 해당 메서드는 크게 if문 3개로 나누어졌다.  
+각 if문에 대해 `updateQualityExceptForSulfuras(item)`, `updateSellIn(item)`, `updateQualityBasedOnSellInLowerThan0(item)` 메서드로 extract하였다.
 
 ``` java
 public void updateItem() {
@@ -235,11 +242,11 @@ public void updateItem() {
 }
 ```
 
-3. updateQualityExceptForSulfuras(item)
+### 3. `updateQualityExceptForSulfuras(item)`
 
-   Sulfuras를 제외한 item에 대해서 quality를 update하는 메서드이다.
+Sulfuras를 제외한 item에 대해서 quality를 update하는 메서드이다.
 
-   * 
+* 
 
 ``` java
  private void updateQualityExceptForSulfuras(Item item) {
